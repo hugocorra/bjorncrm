@@ -2,29 +2,28 @@ from django.db import models
 
 
 class Endereco(models.Model):
-    pais = models.CharField()
-    estado = models.CharField()
-    cidade = models.CharField()
-    logradouro = models.CharField()
-    numero = models.CharField()
-    complemento = models.CharField()
-    cep = models.CharField()
+    pais = models.CharField(max_length=50, verbose_name='País')
+    estado = models.CharField(max_length=30, verbose_name='Estado')
+    cidade = models.CharField(max_length=50, verbose_name='Cidade')
+    logradouro = models.CharField(max_length=100, verbose_name='Logradouro')
+    numero = models.CharField(max_length=10, verbose_name='Número')
+    complemento = models.CharField(max_length=10, verbose_name='Complemento')
+    cep = models.CharField(max_length=9, verbose_name='CEP')
 
 
 class Telefone(models.Model):
-    numero = models.CharField()
+    numero = models.CharField(max_length=20, verbose_name='Telefone')
 
 
 class Contato(models.Model):
-    nome = models.CharField()
-    cargo = models.CharField()
+    nome = models.CharField(max_length=100, verbose_name='Nome')
+    ocupação = models.CharField(max_length=50, verbose_name='Ocupação')
     #tipo = Pessoal, Comercial
 
 
 class ContatoEndereco(models.Model)
     contato = models.ForeignKey(Contato)
     endereco = models.ForeignKey(Endereco)
-    #tipo = Residencial, Comercial, Outro
 
 
 class ContatoTelefone(models.Model):
@@ -33,11 +32,11 @@ class ContatoTelefone(models.Model):
 
 
 class Instituicao(models.Model):
-    nome = models.CharField()
+    nome = models.CharField(max_length=50, verbose_name='Instituição')
 
 
 class Departamento(models.Model):
-    nome = models.CharField()
+    nome = models.CharField(max_length=50, verbose_name='Departamento')
 
 
 class InstituicaoEndereco(models.Model):
@@ -62,5 +61,5 @@ class DepartamentoTelefone(models.Model):
 
 class Notas(models.Model):
     usuario = models.ForeignKey(User)
-    timestamp = models.DateTime()
-    texto = models.TextField()
+    timestamp = models.DateTime(auto_now=False, auto_now_add=False)
+    texto = models.TextField(verbose_name='Nota')
