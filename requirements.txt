@@ -1,0 +1,6 @@
+httpie
+markdown
+django
+django-filter
+djangorestframework
+social-auth-app-django

@@ -16,50 +16,67 @@ class Telefone(models.Model):
 
 
 class Contato(models.Model):
+    TIPO_CONTATO = (
+        ('P', 'Pessoal'),
+        ('C', 'Comercial'),
+    )
+
     nome = models.CharField(max_length=100, verbose_name='Nome')
     ocupação = models.CharField(max_length=50, verbose_name='Ocupação')
-    #tipo = Pessoal, Comercial
+    cargo = models.CharField()
+    tipo = models.CharField(choices=TIPO_CONTATO, max_length=1, verbose_name='Tipo')
 
 
-class ContatoEndereco(models.Model)
-    contato = models.ForeignKey(Contato)
-    endereco = models.ForeignKey(Endereco)
+class ContatoEndereco(models.Model):
+    contato = models.ForeignKey(Contato, on_delete=models.CASCADE)
+    endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE)
+    #tipo = Residencial, Comercial, Outro
 
-
-class ContatoTelefone(models.Model):
-    contato = models.ForeignKey(Contato)
-    telefone = models.ForeignKey(Telefone)
+    class Meta:
+        ordering = ('nome',)
 
 
 class Instituicao(models.Model):
     nome = models.CharField(max_length=50, verbose_name='Instituição')
 
+    class Meta:
+        ordering = ('nome',)
+
 
 class Departamento(models.Model):
     nome = models.CharField(max_length=50, verbose_name='Departamento')
 
+    class Meta:
+        ordering = ('nome',)
+
+
+class ContatoTelefone(models.Model):
+    contato = models.ForeignKey(Contato, on_delete=models.CASCADE)
+    telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE)
+
 
 class InstituicaoEndereco(models.Model):
-    instituicao = models.ForeignKey(Instituicao)
-    endereco = models.ForeignKey(Endereco)
+    instituicao = models.ForeignKey(Instituicao, on_delete=models.CASCADE)
+    endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE)
 
 
 class DepartamentoEndereco(models.Model):
-    departamento = models.ForeignKey(Departamento)
-    endereco = models.ForeignKey(Departamento)
-
-
-class InstituicaoTelefone(models.Model):
-    instituicao = models.ForeignKey(Instituicao)
-    telefone = models.ForeignKey(Telefone)
-
-
-class DepartamentoTelefone(models.Model):
-    departamento = models.ForeignKey(Departamento)
-    telefone = models.ForeignKey(Telefone)
+    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
+    endereco = models.ForeignKey(Departamento, on_delete=models.CASCADE)
 
 
 class Notas(models.Model):
-    usuario = models.ForeignKey(User)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTime(auto_now=False, auto_now_add=False)
     texto = models.TextField(verbose_name='Nota')
+
+
+class InstituicaoTelefone(models.Model):
+    instituicao = models.ForeignKey(Instituicao, on_delete=models.CASCADE)
+    telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE)
+
+
+class DepartamentoTelefone(models.Model):
+    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
+    telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE)
+
