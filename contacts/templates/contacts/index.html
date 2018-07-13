@@ -1,1 +1,13 @@
-index.htm
+{% load rest_framework %}
+
+<html><body>
+
+<h1>Profile - {{ contato.nomee }}</h1>
+
+<form action="{% url 'contato-list' %}" method="post" novalidate>
+    {% csrf_token %}
+    {% render_form serializer template_pack='rest_framework/vertical' %}
+    <button type="submit" class="btn btn-default">Sign in</button>
+</form>
+
+</body></html>

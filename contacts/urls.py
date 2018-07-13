@@ -20,5 +20,9 @@ from django.urls import path
 from contacts import views
 
 urlpatterns = [
-    path('', views.home, name='home')
+    path('', views.home, name='home'),
+    path(r'contato/', views.ContatoList.as_view(), name='contato-list'),
+    path(r'contato/<int:pk>/', views.ContatoDetail.as_view(), name='contato-details'),
+    path(r'contato/add/', views.ContatoCreate.as_view(), name='contato-create'),
+    path(r'contato/update/<int:pk>/', views.ContatoUpdate.as_view(), name='contato-update'),
 ]
