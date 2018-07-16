@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block head %}
+    <script type="text/javascript">
+        $(function() {
+
+        });
+    </script>
+
+    <style type="text/css">
+    </style>
+{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+    {{ form.errors }}
+{% endif %}
+
+<form method="post">{% csrf_token %}
+   <div style="clear:both"></div>
+
+    <div style="background: #FB3">
+        Pessoas: <input type="text"/>
+    </div>
+
+    <div style="background: #A1B">
+        Sugestões: xxx
+    </div>
+
+    <div style="background: #ABB">
+        {{ form }}
+    </div>
+
+    <div>
+      <input type="submit" value="Salvar" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+</form>
+
+{% endblock %}

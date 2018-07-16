@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="background: #F92">
+        Pesquisar <input type="text" />
+    </div>
+
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Ocupação</th>
+            <th>Tipo</th>
+            <th>Instituição</th>
+            <th>Departamento</th>
+            <th>Telefones</th>
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td>{{ object.nome }}</td>
+                <td>{{ object.ocupacao }}</td>
+                <td>{{ object.get_tipo_display }}</td>
+                <td>{{ object.instituicao }}</td>
+                <td>{{ object.departamento }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+{% endblock %}

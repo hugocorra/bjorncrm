@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="background: #F92">
+        Pesquisar <input type="text" />
+    </div>
+
+    <table border=1>
+        {% for object in object_list %}
+            <tr>
+                <td>*</td>
+                <td>{{ object.data|date:"Y-m-d" }} {{ object.horario|default:"" }}</td>
+                <td>
+                    {% if object.resumo %}
+                        {{ object.resumo }}
+                    {% else %}
+                        {{ object.descricao|truncatechars:150 }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+{% endblock %}

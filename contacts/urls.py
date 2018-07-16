@@ -19,10 +19,14 @@ from django.urls import path
 
 from contacts import views
 
+app_name = 'contacts'
+
 urlpatterns = [
     path('', views.home, name='home'),
+    path(r'contato/api/', views.ContatoApiList.as_view(), name='contato-api-list'),
+    path(r'contato/api/<int:pk>/', views.ContatoApiDetail.as_view(), name='contato-api-details'),
+
     path(r'contato/', views.ContatoList.as_view(), name='contato-list'),
-    path(r'contato/<int:pk>/', views.ContatoDetail.as_view(), name='contato-details'),
     path(r'contato/add/', views.ContatoCreate.as_view(), name='contato-create'),
     path(r'contato/update/<int:pk>/', views.ContatoUpdate.as_view(), name='contato-update'),
 ]

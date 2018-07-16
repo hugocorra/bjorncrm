@@ -13,11 +13,19 @@
         </div>
 
         <div>
+            {{ form.tipo.label }}: {{ form.tipo}} {{ form.tipo.errors }}
+        </div>
+
+        <div>
             {{ form.ocupacao.label }}: {{ form.ocupacao}} {{ form.ocupacao.errors }}
         </div>
 
         <div>
-            {{ form.tipo.label }}: {{ form.tipo}} {{ form.tipo.errors }}
+            {{ form.instituicao.label }}: {{ form.instituicao}} {{ form.instituicao.errors }}
+        </div>
+
+        <div>
+            {{ form.departamento.label }}: {{ form.departamento}} {{ form.departamento.errors }}
         </div>
 
         <div>
@@ -33,6 +41,9 @@
         {{ formset_email }}
     </div>
 
+    <div style="background:#BCD">
+        {{ form_endereco }}
+    </div>
 
     <div>
       <input type="submit" value="Salvar" />

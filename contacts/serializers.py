@@ -37,40 +37,8 @@ class ContatoEmailSerializer(serializers.ModelSerializer):
         model = models.ContatoEmail
         fields = '__all__'
 
-class InstituicaoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Instituicao
-        fields = '__all__'
 
 
-class DepartamentoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Departamento
-        fields = '__all__'
-
-
-class InstituicaoEnderecoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.InstituicaoEndereco
-        fields = '__all__'
-
-
-class DepartamentoEnderecoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.DepartamentoEndereco
-        fields = '__all__'
-
-
-class InstituicaoTelefoneSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.InstituicaoTelefone
-        fields = '__all__'
-
-
-class DepartamentoTelefoneSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.DepartamentoTelefone
-        fields = '__all__'
 
 
 # class NotasSerializer(serializers.ModelSerializer):

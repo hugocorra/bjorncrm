@@ -1,15 +1,28 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Bjorn CRM}</title>
-   </head>
-  <body>
-    <div style="background: #F00;width:100%;height:5px;margin:0px;padding:0px"></div>
-    <h1>{{page_name}}</h1>
+    <head>
+        <title>Bjorn CRM</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <div style="margin-left:auto;margin-right:auto; background:#0f0; width: 80%">
-        {% block content %}
-        {% endblock content %}
-    </div>
-  </body>
+        {% block head %}
+        {% endblock head %}
+    </head>
+    <body>
+        <div style="background: #F00;width:100%;height:5px;margin:0px;padding:0px"></div>
+
+        <div>
+            <a href="{% url 'contacts:contato-list' %}">Contatos</a> &nbsp;|&nbsp;
+            <a href="{% url 'contacts:contato-create' %}">+ Contato</a> &nbsp;|&nbsp;
+            <a href="{% url 'interactions:interacao-list' %}">Interações</a> &nbsp;|&nbsp;
+            <a href="{% url 'interactions:interacao-create' %}">+ Interação</a> &nbsp;|&nbsp;
+        </div>
+
+
+        <h1>{{page_name}}</h1>
+
+        <div style="margin-left:auto;margin-right:auto; background:#0f0; width: 80%">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
 </html>
