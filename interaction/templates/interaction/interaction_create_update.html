@@ -2,13 +2,77 @@
 {% load static %}
 
 {% block head %}
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
+    <script src="{% static 'js/typeahead.bundle.js' %}"></script>
+    <!-- <script type="text/javascript" src="//netsh.pp.ua/upwork-demo/1/js/typeahead.js"></script> -->
+
     <script type="text/javascript">
         $(function() {
 
+        // $("input.doctor").typeahead({
+        //   name: "doctor",
+        //   remote: "doctor.php?query=%QUERY"
+        // });
+
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+
+    // an array that will be populated with substring matches
+    matches = [];
+
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+
+    cb(matches);
+  };
+};
+
+var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+];
+
+$('#the-basics .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'states',
+  source: substringMatcher(states)
+});
+
+
         });
+
+
     </script>
 
     <style type="text/css">
+.tt-menu {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 12px;
+    padding: 8px 0;
+    width: 422px;
+}
     </style>
 {% endblock %}
 
@@ -19,6 +83,14 @@
 {% endif %}
 
 <form method="post">{% csrf_token %}
+
+<div id="the-basics">
+  <input class="typeahead" type="text" placeholder="States of USA">
+</div>
+
+<!--           <input type="text" name="doctor" size="30" class="doctor" placeholder="Please Enter City or ZIP code" />
+
+    <input class="js-typeahead-country_v1" /> -->
    <div style="clear:both"></div>
 
     <div style="background: #FB3">
@@ -38,5 +110,7 @@
       <input type="hidden" name="next" value="{{ next }}" />
     </div>
 </form>
+
+
 
 {% endblock %}
