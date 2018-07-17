@@ -57,6 +57,18 @@ $('#the-basics .typeahead').typeahead({
   source: substringMatcher(states)
 });
 
+          $('.typeahead').keydown(function(e) {
+            var keyCode = e.keyCode || e.which;
+
+            if(keyCode == 9)
+            {
+              e.preventDefault();
+              alert($('input.typeahead.tt-input').val());
+              //Code to imitate keypress of Tab key
+            }
+          });
+
+
 
         });
 
