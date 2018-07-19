@@ -26,5 +26,9 @@ class EnderecoForm(ModelForm):
         fields = '__all__'
 
 
-TelefoneFormSet = formset_factory(TelefoneForm, can_delete=True, min_num=3)
-EmailFormSet = formset_factory(EmailForm, can_delete=True, min_num=2)
+TelefoneFormSet = formset_factory(
+    TelefoneForm, can_delete=True, min_num=3)
+
+
+EmailFormSet = formset_factory(
+    EmailForm, can_delete=True, min_num=2)

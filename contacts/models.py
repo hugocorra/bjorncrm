@@ -27,11 +27,11 @@ class Endereco(models.Model):
 
 
 class Telefone(models.Model):
-    numero = models.CharField(max_length=20, verbose_name='Telefone')
+    numero = models.CharField(max_length=20, blank=True, verbose_name='Telefone')
 
 
 class Email(models.Model):
-    email = models.EmailField(verbose_name="E-mail")
+    email = models.EmailField(blank=True, verbose_name="E-mail")
 
 
 class ContatoEndereco(models.Model):

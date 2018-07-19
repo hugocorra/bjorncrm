@@ -29,6 +29,7 @@
             bloodHound.initialize();
 
             $this
+                .typeahead({highlight: true})
                 .typeahead('destroy')
                 .typeahead({
                     hint: true,
@@ -46,8 +47,14 @@
         }
 
 
-        function add_contato() {
-              $('#div_pessoas').append('<div class="pessoa">' + $('input.typeahead.tt-input').val() + '</div>')
+        function add_contato(is_contato) {
+            if (is_contato)
+                color = 'pessoa_contato'
+            else
+                color = 'pessoa_nao_contato'
+
+              $('#div_pessoas').append('<div class="pessoa ' + color + '">'
+                + $('input.typeahead.tt-input').val() + '</div>')
               $('.typeahead').typeahead('val','');
         }
 
@@ -118,7 +125,7 @@
             if(keyCode == 9)
             {
               e.preventDefault();
-              add_contato();
+              add_contato(false);
 
 
               //$(this).typeahead('close');
@@ -142,7 +149,7 @@
 
             $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
               console.log('Selection: ' + suggestion);
-              add_contato();
+              add_contato(true);
             });
 
 
@@ -165,6 +172,14 @@
     padding: 8px 0;
     width: 422px;
 }
+
+    .pessoa_contato {
+        background: #ff0;
+    }
+
+    .pessoa_nao_contato {
+        background: #ffc;
+    }
     </style>
 {% endblock %}
 
