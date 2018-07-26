@@ -20,5 +20,3 @@ class InteracaoCreate(CreateView):
     def get_context_data(self, **kwargs):
         context = super(InteracaoCreate, self).get_context_data(**kwargs)
         return context
-
-
