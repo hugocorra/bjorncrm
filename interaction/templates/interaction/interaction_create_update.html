@@ -31,8 +31,8 @@
             $this
                 .typeahead('destroy')
                 .typeahead({
-                    hint: true,
-                    highlight: true,
+                    //hint: true,
+                    //highlight: true,
                     minLength: 1
                 },
                 {
@@ -56,7 +56,6 @@
         }
 
         $(function() {
-            initAutocompletion();
         // $("input.doctor").typeahead({
         //   name: "doctor",
         //   remote: "doctor.php?query=%QUERY"
@@ -114,15 +113,22 @@
 // });
 
 
+            initAutocompletion();
 
+
+            $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+                alert('husaduhasda');
+              console.log('Selection: ' + suggestion);
+              add_contato(true, $('input.typeahead.tt-input').val());
+            });
 
           $('.typeahead').keydown(function(e) {
             var keyCode = e.keyCode || e.which;
 
-            if(keyCode == 9)
+            if(keyCode == 13)
             {
               e.preventDefault();
-              // alert($('input.typeahead.tt-input').val());
+              //alert($('input.typeahead.tt-input').val());
               // alert($('.typeahead').val());
               // alert($('.typeahead').typeahead('val'))
               // alert($('.typeahead tt-input').typeahead('val'))
@@ -148,10 +154,6 @@
             // });
 
 
-            $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
-              console.log('Selection: ' + suggestion);
-              add_contato(true, $('input.typeahead.tt-input').val());
-            });
 
 
             // $('.typeahead').bind('typeahead:autocompleted', function(ev, suggestion) {

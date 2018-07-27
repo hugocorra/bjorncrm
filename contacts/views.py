@@ -83,13 +83,18 @@ class ContatoCreate(CreateView):
 
 
 
-
-
-
-
-
-
 class ContatoUpdate(CreateView):
     template_name = 'contacts/contact_create_update.html'
     form_class = ContatoForm
     success_url = reverse_lazy('contacts:contato-list')
+
+    def get_context_data(self, **kwargs):
+        context = super(ContatoUpdate, self).get_context_data(**kwargs)
+
+        endereco = ContatoEndereco.objects.filter(contato=self.object)
+        telefones = [c.telefone for c in ContatoTelefone.objects.filter(contato=self.object)]
+
+        context['form_endereco'] = EnderecoForm(instance=endereco)
+        context['formset_telefone'] = TelefoneFormSet(initial=telefones)
+        context['formset_email'] = EmailFormSet()
+        return context
