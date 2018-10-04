@@ -50,19 +50,21 @@ class ContatoCreate(CreateView):
         context['formset_email'] = EmailFormSet()
         return context
 
+    def form_valid(self, form):
+        save_ok = True
 
-    def post(self, request, *args, **kwargs):
         with transaction.atomic():
-            super(ContatoCreate, self).post(request)
-            endereco_form = EnderecoForm(request.POST)
-            telefones_formset = TelefoneFormSet(request.POST)
-            emails_formset = EmailFormSet(request.POST)
+            response = super(ContatoCreate, self).form_valid(form)
+            endereco_form = EnderecoForm(self.request.POST)
+            telefones_formset = TelefoneFormSet(self.request.POST)
+            emails_formset = EmailFormSet(self.request.POST)
 
             if endereco_form.is_valid():
                 endereco_obj = endereco_form.save()
                 inst = ContatoEndereco(contato=self.object, endereco=endereco_obj)
                 inst.save()
             else:
+                save_ok = False
                 print('E', endereco.errors)
 
             if telefones_formset.is_valid():
@@ -71,6 +73,7 @@ class ContatoCreate(CreateView):
                     inst = ContatoTelefone(contato=self.object, telefone=telefone_obj)
                     inst.save()
             else:
+                save_ok = False
                 print('E', telefones.errors)
 
             if emails_formset.is_valid():
@@ -79,8 +82,14 @@ class ContatoCreate(CreateView):
                     inst = ContatoEmail(contato=self.object, email=email_obj)
                     inst.save()
             else:
+                save_ok = False
                 print('E', emails.errors)
 
+
+        if not save_ok:
+            return 'error'
+
+        return response
 
 
 class ContatoUpdate(CreateView):
