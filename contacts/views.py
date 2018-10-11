@@ -16,7 +16,7 @@ from rest_framework import generics
 
 from contacts.forms import ContatoForm, TelefoneFormSet, EmailFormSet, EnderecoForm
 from contacts.models import Contato, ContatoEndereco, ContatoTelefone, ContatoEmail
-from contacts.serializers import ContatoSerializer
+from contacts.serializers import ContatoSerializer, TelefoneSerializer
 
 
 @login_required
@@ -92,18 +92,23 @@ class ContatoCreate(CreateView):
         return response
 
 
-class ContatoUpdate(CreateView):
+class ContatoUpdate(UpdateView):
     template_name = 'contacts/contact_create_update.html'
     form_class = ContatoForm
+    model = Contato
     success_url = reverse_lazy('contacts:contato-list')
 
     def get_context_data(self, **kwargs):
         context = super(ContatoUpdate, self).get_context_data(**kwargs)
 
         endereco = ContatoEndereco.objects.filter(contato=self.object)
-        telefones = [c.telefone for c in ContatoTelefone.objects.filter(contato=self.object)]
+        telefones = [TelefoneSerializer(c.telefone).data for c in ContatoTelefone.objects.filter(contato=self.object)]
 
-        context['form_endereco'] = EnderecoForm(instance=endereco)
+        if endereco:
+            context['form_endereco'] = EnderecoForm(instance=endereco[0])
+        else:
+            context['form_endereco'] = EnderecoForm()
+
         context['formset_telefone'] = TelefoneFormSet(initial=telefones)
         context['formset_email'] = EmailFormSet()
         return context
