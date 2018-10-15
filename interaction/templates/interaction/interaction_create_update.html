@@ -1,7 +1,14 @@
-{% extends "base_generic.html" %}
+{% extends "layout_fixed.html" %}
 {% load static %}
 
 {% block head %}
+<link href="{% static 'assets/css/components.min.css' %}" rel="stylesheet" type="text/css">
+{# <link href="{% static 'global_assets/js/plugins/forms/tags/tagsinput.min.js' %}"></script>#}
+<script src="{% static 'global_assets/js/plugins/forms/tags/tagsinput.min.js' %}"></script>
+<script src="{% static 'global_assets/js/plugins/forms/tags/tokenfield.min.js' %}"></script>
+<script src="{% static 'global_assets/js/demo_pages/form_tags_input.js' %}"></script>
+
+
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
     <script src="{% static 'js/typeahead.bundle.js' %}"></script>
     <!-- <script type="text/javascript" src="//netsh.pp.ua/upwork-demo/1/js/typeahead.js"></script> -->
@@ -213,46 +220,113 @@
         background: #ffc;
     }
     </style>
+
+{% endblock %}
+
+
+{% block content_title %}
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Nova Interação</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="{% url 'dashboard:index' %}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+            <a href="{% url 'interactions:interacao-list' %}" class="breadcrumb-item">Interações</a>
+            <span class="breadcrumb-item active">Nova</span>
+        </div>
+
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+
+    </div>
 {% endblock %}
 
 {% block content %}
+
+
+
 
 {% if form.errors %}
     {{ form.errors }}
 {% endif %}
 
-<form method="post">{% csrf_token %}
+<div class="card">
+    <div class="card-body">
+            <form method="post">{% csrf_token %}
 
-<div id="the-basics">
-  <input class="typeahead" type="text" placeholder="Pessoas">
+            <div id="the-basics" class="form-group">
+                <label>Envolvidos:</label>
+                <input class="typeahead form-control" type="text" placeholder="Pessoas">
+            </div>
+
+          <div id="div_pessoas" class="form-group">
+          </div>
+
+            <div class="form-group">
+                <label>Tags:</label>
+                <select multiple="" data-placeholder="Enter tags" class="form-control form-control-select2-icons select2-hidden-accessible" data-fouc="" tabindex="-1" aria-hidden="true">
+                    <optgroup label="Services">
+                        <option value="wordpress2" data-icon="wordpress2">Wordpress</option>
+                        <option value="tumblr2" data-icon="tumblr2">Tumblr</option>
+                        <option value="stumbleupon" data-icon="stumbleupon">Stumble upon</option>
+                        <option value="pinterest2" data-icon="pinterest2">Pinterest</option>
+                        <option value="lastfm2" data-icon="lastfm2">Lastfm</option>
+                    </optgroup>
+                    <optgroup label="File types">
+                        <option value="pdf" data-icon="file-pdf">PDF</option>
+                        <option value="word" data-icon="file-word">Word</option>
+                        <option value="excel" data-icon="file-excel">Excel</option>
+                        <option value="openoffice" data-icon="file-openoffice">Open office</option>
+                    </optgroup>
+                    <optgroup label="Browsers">
+                        <option value="chrome" data-icon="chrome" selected="">Chrome</option>
+                        <option value="firefox" data-icon="firefox" selected="">Firefox</option>
+                        <option value="safari" data-icon="safari">Safari</option>
+                        <option value="opera" data-icon="opera">Opera</option>
+                        <option value="IE" data-icon="IE">IE</option>
+                    </optgroup>
+                </select><span class="select2 select2-container select2-container--default select2-container--focus" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="Chrome"><span class="select2-selection__choice__remove" role="presentation">×</span><i class="icon-chrome"></i>Chrome</li><li class="select2-selection__choice" title="Firefox"><span class="select2-selection__choice__remove" role="presentation">×</span><i class="icon-firefox"></i>Firefox</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.resumo.label }}:</label>
+                {{ form.resumo }}
+                {{ form.resumo.errors }}
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.descricao.label }}:</label>
+                {{ form.descricao }}
+                {{ form.descricao.errors }}
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ form.data.label }}:</label>
+                        {{ form.data }}
+                        {{ form.data.errors }}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ form.horario.label }}:</label>
+                        {{ form.horario }}
+                        {{ form.horario.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Salvar<i class="icon-paperplane ml-2"></i></button>
+                <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+
+        </form>
+    </div>
 </div>
-
-<!--           <input type="text" name="doctor" size="30" class="doctor" placeholder="Please Enter City or ZIP code" />
-
-    <input class="js-typeahead-country_v1" /> -->
-   <div style="clear:both"></div>
-
-<!--     <div style="background: #FB3">
-        Pessoas: <input type="text"/>
-    </div> -->
-
-    <div id="div_pessoas">
-    </div>
-
-    <div style="background: #A1B">
-        Sugestões: xxx
-    </div>
-
-    <div style="background: #ABB">
-        {{ form }}
-    </div>
-
-    <div>
-      <input type="submit" value="Salvar" />
-      <input type="hidden" name="next" value="{{ next }}" />
-    </div>
-</form>
-
-
-
 {% endblock %}
