@@ -11,6 +11,8 @@ from interaction.models import Interacao, InteracaoContatos
 class InteracaoList(ListView):
     model = Interacao
 
+    #def get_context_data(self, **kwargs)
+
 
 class InteracaoCreate(CreateView):
     template_name = 'interaction/interaction_create_update.html'

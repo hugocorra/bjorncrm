@@ -1,22 +1,89 @@
-{% extends "base_generic.html" %}
+{% extends "layout_fixed.html" %}
+
+{% block content_title %}
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Lista de Interações</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+    </div>
+    <a href="{% url 'interactions:interacao-create' %}">
+        <button type="button" class="btn btn-primary"><i class="icon-bubble-lines4 mr-2"></i> Nova Interação</button>
+    </a>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="{% url 'dashboard:index' %}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+            <span class="breadcrumb-item active">Interações</span>
+        </div>
+
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+
+    </div>
+{% endblock %}
+
+{% block breadcrumbs_right %}
+
+{% endblock %}
 
 {% block content %}
-    <div style="background: #F92">
-        Pesquisar <input type="text" />
+
+    <div class="card">
+        <div class="card-body">
+            <form action="#">
+                <div class="input-group mb-3">
+                    <div class="form-group-feedback form-group-feedback-left">
+                        <input type="text" class="form-control form-control-lg alpha-grey" placeholder="Pesquisar por Interação">
+                        <div class="form-control-feedback form-control-feedback-lg">
+                            <i class="icon-search4 text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary btn-lg">Pesquisar</button>
+                    </div>
+                </div>
+
+                <div class="d-md-flex align-items-md-center flex-md-wrap text-center text-md-left">
+                    <ul class="list-inline list-inline-condensed mb-0">
+                        <li class="list-inline-item dropdown">
+                            <a href="#" class="btn btn-link text-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-stack2 mr-2"></i>
+                                Todas as categorias
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <table border=1>
-        {% for object in object_list %}
-            <tr>
-                <td>*</td>
-                <td>{{ object.data|date:"Y-m-d" }} {{ object.horario|default:"" }}</td>
-                <td>
-                    {% if object.resumo %}
-                        {{ object.resumo }}
-                    {% else %}
-                        {{ object.descricao|truncatechars:150 }}
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
+
+
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Interação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                        <tr>
+                            <td>{{ object.data|date:"Y-m-d" }}, {{ object.horario|default:"" }}</td>
+                            <td>
+                                {% if object.resumo %}
+                                    {{ object.resumo }}
+                                {% else %}
+                                    {{ object.descricao|truncatechars:150 }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

@@ -13,7 +13,7 @@ class Contato(models.Model):
     tipo = models.CharField(choices=TIPO_CONTATO, max_length=1, verbose_name='Tipo')
     instituicao = models.CharField(max_length=50, blank=True, null=True, verbose_name='Instituição')
     departamento = models.CharField(max_length=50, blank=True, null=True, verbose_name='Departamento')
-    notas = models.TextField(blank=True, verbose_name='Nota')
+    notas = models.TextField(blank=True, verbose_name='Notas')
 
 
 class Endereco(models.Model):

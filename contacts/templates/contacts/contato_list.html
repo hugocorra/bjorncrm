@@ -5,13 +5,15 @@
         <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Lista de Contatos</span></h4>
         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
     </div>
-    <button type="button" class="btn btn-primary"><i class="icon-user-plus mr-2"></i> Novo Contato</button>
+    <a href="{% url 'contacts:contato-create' %}">
+        <button type="button" class="btn btn-primary"><i class="icon-user-plus mr-2"></i> Novo Contato</button>
+    </a>
 {% endblock %}
 
 {% block breadcrumbs %}
     <div class="d-flex">
         <div class="breadcrumb">
-            <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+            <a href="{% url 'dashboard:index' %}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
             <span class="breadcrumb-item active">Contatos</span>
         </div>
 
