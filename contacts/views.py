@@ -2,6 +2,7 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -112,3 +113,50 @@ class ContatoUpdate(UpdateView):
         context['formset_telefone'] = TelefoneFormSet(initial=telefones)
         context['formset_email'] = EmailFormSet()
         return context
+
+
+#TODO: feito de maneira temporária para importar um arquivo de contatos exemplo.
+class ContatoImport(View):
+    template_name = 'contacts/contact_import.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})
+
+    def post(self, request, *args, **kwargs):
+        #from IPython import embed; embed()
+
+        from contacts.models import Telefone, Email
+
+        contatos_file = request.FILES['contatos_file']
+
+        nome, instituicao, telefone, endereco, email = 0, 1, 2, 3, 4
+
+        for line in contatos_file:
+            line = line.decode("utf-8")
+            print('>>>>', line)
+            values = line.split(';')
+            if not values[nome] or len(values) <= 4:
+                continue
+
+            print(values[nome])
+
+            c = Contato(nome=values[nome], tipo='C', notas=values[endereco])
+            t = Telefone(numero=values[telefone])
+            e = Email(email=values[email])
+
+            with transaction.atomic():
+                c.save()
+                t.save()
+                e.save()
+
+                ct = ContatoTelefone(contato=c, telefone=t)
+                ce = ContatoEmail(contato=c, email=e)
+                ct.save()
+                ce.save()
+
+        #form = self.form_class(request.POST)
+       # if form.is_valid():
+            # <process form cleaned data>
+            #return HttpResponseRedirect('/success/')
+
+        return render(request, self.template_name)

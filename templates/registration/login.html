@@ -1,39 +1,78 @@
-{% extends "base_generic.html" %}
+{% extends "layout_nonavbar.html" %}
+
+{% block content_title %}
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block breadcrumbs_right %}
+{% endblock %}
 
 {% block content %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+    <div class="content d-flex justify-content-center align-items-center">
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
+        <!-- Login form -->
+        <form class="login-form" method="post" action="{% url 'login' %}">{% csrf_token %}
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                        <h5 class="mb-0">Acessa a conta</h5>
+                        <span class="d-block text-muted">Entre com suas credenciais abaixo</span>
+                    </div>
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <input type="text" class="form-control" name="{{ form.username.name }}" placeholder="Nome de Usuário">
+                        <div class="form-control-feedback">
+                            <i class="icon-user text-muted"></i>
+                        </div>
+                    </div>
 
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</div>
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <input type="password" class="form-control" name="{{ form.password.name }}" placeholder="Senha">
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
 
-<div>
-  <input type="submit" value="login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</div>
-</form>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Acessar <i class="icon-circle-right2 ml-2"></i></button>
+                    </div>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+                    <div class="form-group d-flex align-items-center">
+                        <a href="{% url 'users:signup' %}">Criar Conta</a>
+                        <a href="{% url 'password_reset' %}" class="ml-auto">Esqueceu a Senha?</a>
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                    <div class="p-2">
+                        <div class="alert alert-danger border-0 text-center">
+                            <span class="font-weight-semibold">Oh snap!</span> Seu nome de usuário e senha não funcionaram!
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if next %}
+                    <div class="p-2">
+                        <div class="alert bg-info text-white alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+                            <span class="font-weight-semibold">Oh snap!</span> 
+                            {% if user.is_authenticated %}
+                                <p>Sua conta não permite acesso a essa página. Para acessar, utilize uma conta válida.</p>
+                            {% else %}
+                                <p>Por favor, faça login para ver essa página.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+  
+                {% endif %}
+            </div>
+        </form>
+        <!-- /login form -->
+
+    </div>
 
 {% endblock %}

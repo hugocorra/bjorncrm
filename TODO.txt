@@ -1,1 +1,6 @@
+- na tela de criar, editar interações, corrigir comportamento de envolvidos.
 - implementar sistema de TAGS para interação
+- criar dela para visualizar/editar as interações
+- implementar autenticação
+- implementar buscas
+

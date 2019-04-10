@@ -1,0 +1,91 @@
+{% extends "layout_nonavbar.html" %}
+
+{% block content_title %}
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript">
+        $(function() {
+            $('#{{ form.username.auto_id }}').addClass('form-control');
+            $('#{{ form.password1.auto_id }}').addClass('form-control');
+            $('#{{ form.password2.auto_id }}').addClass('form-control');
+            $('#{{ form.email.auto_id }}').addClass('form-control');
+
+            $('#{{ form.username.auto_id }}').attr('placeholder', '{{ form.username.label }}')
+            $('#{{ form.password1.auto_id }}').attr('placeholder', '{{ form.password1.label }}')
+            $('#{{ form.password2.auto_id }}').attr('placeholder', '{{ form.password2.label }}')
+            $('#{{ form.email.auto_id }}').attr('placeholder', '{{ form.email.label }}')
+        })
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="content d-flex justify-content-center align-items-center">
+
+
+
+
+        <!-- Login form -->
+        <form class="login-form" method="post" action="{% url 'users:signup' %}">{% csrf_token %}
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                        <h5 class="mb-0">Criar Usuário</h5>
+                    </div>
+
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <!-- <input type="text" class="form-control" name="{{ form.username.name }}" placeholder="Nome de Usuário"> -->
+                        {{ form.username }}
+                        <div class="form-control-feedback">
+                            <i class="icon-user text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <!-- <input type="text" class="form-control" name="{{ form.username.name }}" placeholder="Nome de Usuário"> -->
+                        {{ form.email }}
+                        <div class="form-control-feedback">
+                            <i class="icon-envelop text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <!-- <input type="password" class="form-control" name="{{ form.password1 }}" placeholder="Senha"> -->
+                        {{ form.password1 }}
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <!-- <input type="password" class="form-control" name="{{ form.password1 }}" placeholder="Senha"> -->
+                        {{ form.password2 }}
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info btn-block">Criar Conta <i class="icon-circle-right2 ml-2"></i></button>
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                    <div class="p-2">
+                        <div class="alert alert-danger border-0 text-center">
+                            <span class="font-weight-semibold">Oh snap!</span>
+                            <div class="text-left">
+                                {{ form.errors }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </form>
+        <!-- /login form -->
+
+    </div>
+
+{% endblock %}
